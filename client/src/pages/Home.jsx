@@ -11,13 +11,13 @@ const Home = () => {
             cover:'https://covers.openlibrary.org/b/isbn/9780385533225-S.jpg'
         },
         {
-            id: 1,
+            id: 2,
             title:"lorem ipsum",
             desc:"lorem ipusaksfda;slkdj ",
             cover:'https://covers.openlibrary.org/b/isbn/9780385533225-S.jpg'
         },
         {
-            id: 1,
+            id: 3,
             title:"lorem ipsum",
             desc:"lorem ipusaksfda;slkdj ",
             cover:'https://covers.openlibrary.org/b/isbn/9780385533225-S.jpg'
