@@ -1,5 +1,7 @@
 import { db } from "../database.js";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 
 export const register = (req, res) => {
 
@@ -32,7 +34,28 @@ export const register = (req, res) => {
 };
 
 export const login = (req, res) => {
-    
+   
+    //CHECK IF USER EXISTS IN DB
+    const q = "SELECT * FROM users WHERE username = ?";
+    db.query(q, [req.body.username], (err,data)=> {
+        if(err) return res.json(err);
+        if(data.length === 0 ) return res.status(404).json("User not found!");
+
+        const correctPassword = bcrypt.compareSync(req.body.password, data[0].password);
+        if(!correctPassword) return res.status(400).json("Incorrect login information");
+
+        //CREATE A JSON WEB TOKEN USING USERS ID TO VERIFY USER IDENTITY
+        const token = jwt.sign({id:data[0].id}, "jwtkey");
+
+        //SEPARATES USER PASSWORD FROM OTHER INFO
+        const {password, ...other} = data[0]
+
+        //SETS COOKIE NAME AND VALUE
+        //ONLY ACCEPTS API REQUESTS (NO SCRIPTS CAN ACCESS THE COOKIES)
+        res.cookie("access_token", token, {
+            httpOnly:true
+        }).status(200).json(other);
+    })  
 };
 
 export const logout = (req, res) => {

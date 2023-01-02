@@ -5,10 +5,6 @@ const router = express.Router();
 
 router.post("/register", register);
 
-router.get('/register', ()=>{
-    console.log("heyo");
-})
-
 router.post("/login", login);
 
 router.post("/logout", logout);
