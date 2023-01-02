@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
 
 const Login = () => {
   //SET STATE HOOK FOR INPUTS
@@ -21,12 +22,14 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const { login } = useContext(AuthContext);
+
   //SUBMITS INPUTS TO DB
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
       //SEND HTTP REQ TO BACKEND SERVER USING AXIOS/PROXY PATH
-      await axios.post("/api/auth/login", inputs);
+      await login(inputs);
 
       //REDIRECT USER TO LOGIN
       navigate("/")
