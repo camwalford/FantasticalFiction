@@ -13,6 +13,7 @@ import Book from "./pages/Book";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Add from "./pages/Add";
+import Books from "./pages/Books";
 import "./styles/style.scss";
 
 const Layout = ()=>{
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
         element:<Home />
       },
       {
-        path: "/lists",
+        path: "/list",
         element: <Lists />
       },
       {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         path: "/edit",
         element: <Edit />
       },
+      {
+        path: "/books",
+        element: <Books />
+      }
     ]
   },
   {
