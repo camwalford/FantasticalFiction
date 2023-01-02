@@ -1,0 +1,166 @@
+$background: rgb(233, 191, 112);
+$accent:  rgb(253, 190, 74);
+$buttonText: white;
+$headerText: black;
+$borderColor: lightgrey;
+$error: red;
+
+.app{
+    display: flex;
+    justify-content: center;
+    .container{
+        width: 1024px;
+
+        .link{
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        //LOGIN & REGISTER
+        .auth{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: $background;
+            color: rgb(0, 0, 0);
+        
+
+            h1{
+                font-size: 35px;
+                color: $headerText;
+                margin: 20px;
+            }
+
+            form{
+                display: flex;
+                flex-direction: column;
+                padding: 30px;
+                background-color: white;
+                width: 300px;
+                gap: 20px;
+
+                input{
+                    padding: 10px;
+                    border: none;
+                    border-bottom: 1px $borderColor solid;
+                }
+
+                button{
+                    padding: 10px;
+                    font-size: 12pt;
+                    border:none;
+                    background-color: $accent;
+                    color: $buttonText;
+                    cursor: pointer;
+                }
+
+            }
+
+            .error-message{
+                font-size: 11pt;
+                color: $error;
+                text-align: center;
+            }
+
+            span{
+                font-size: 11pt ;
+                text-align: center;
+            }
+            
+
+
+        }
+
+        //NAV
+        .nav{
+
+            .container{
+                padding: 10px 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .logo{ 
+                    img{
+                        height: 150px;
+                    }
+                    
+                }
+                .links{
+                    
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    h6{
+                        font-size: 12pt;
+                    }
+
+                    span{
+                        cursor: pointer;
+                    }
+                }
+
+            }
+        }
+
+        //FOOTER
+        footer{
+            margin-top: 100px;
+            padding: 20px;
+            background-color: $background;
+            display:flex;
+            justify-content: space-between;
+        }
+
+        //HOME
+        .home{
+
+            .books{
+                margin-top:50px;
+                display:flex;
+                flex-direction: column;
+                gap: 100px;
+
+                .book{
+                    display:flex;
+
+                    .cover{
+                        flex: 1;
+                        img{
+                            width: 100%;
+                        }
+                    }
+
+                    .content{
+                        flex: 1;
+                    }
+    
+                }
+            }
+        }
+
+        //BOOK
+        .single-book{
+            display: flex;
+            gap: 50px;
+
+            .content{
+                flex: 5;
+
+                .cover{
+                    width: 200px;
+                }
+            }
+
+            .menu{
+                flex: 2;
+            }
+        }
+        
+
+    }
+
+}
