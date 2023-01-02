@@ -1,8 +1,13 @@
 import React from 'react';
 import Logo from "../img/logo.png";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
+import { useContext } from 'react';
 
 const Nav = () => {
+
+  const { currentUser, logout } = useContext(AuthContext);
+
   return (
     <div className='nav'>
         <div className="container">
@@ -13,8 +18,11 @@ const Nav = () => {
                 <Link className="link" to="/?cat=top"><h6>TOP RATED</h6></Link>
                 <Link className="link" to="/?cat=popular"><h6>MOST POPULAR</h6></Link>
                 <Link className="link" to="/search"><h6>SEARCH</h6></Link>
-                <span>Cameron</span>
-                <span>Logout</span>
+
+                {/* DISPLAY CURRENT USERNAME */}
+                <span>{currentUser ?.username}</span>
+                {/* DISPLAY LOG IN IF USER LOGGED OUT, VICE VERSA */}
+                {currentUser ? (<span onClick={logout}>Logout</span>) : (<Link className="link" to="/login">Login</Link>)}
             </div>
         </div>
     </div>
