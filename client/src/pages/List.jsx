@@ -6,6 +6,8 @@ import { AuthContext } from '../context/authContext';
 
 const List = () => {
 
+    
+
     const [list, setList] = useState([])
 
     const {currentUser} = useContext(AuthContext);
@@ -32,6 +34,15 @@ const List = () => {
       fetchData();
     }, [listId]);
 
+    const handleDelete = async(bookID) => {
+      try {
+        const res = await axios.delete(`/api/booklist/${listId}/${bookID}`);
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
   
   return (
       <div className='single-list'>
@@ -48,6 +59,8 @@ const List = () => {
             <th>Genre</th>
             <th>Status</th>
             <th>Rating</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -58,6 +71,8 @@ const List = () => {
                 <td>{book.genre}</td>
                 <td>{book.currentStatus}</td>
                 <td>{book.rating}</td>
+                <td>Edit</td>
+                <td><button onClick={()=>handleDelete(book.bookID)}>Delete</button></td>
               </tr>
             ))}  
           </tbody>

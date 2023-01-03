@@ -1,3 +1,5 @@
+import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
 import {db} from "../database.js";
 
 /******************************************************************/
@@ -36,7 +38,26 @@ export const addToList = (req, res)=>{
 }
 
 export const deleteFromList =(req, res)=>{
-    res.json("update from booklist controller")
+    const token = req.cookies.access_token;
+    if(!token) return res.status(401).json("User not authenticated");
+    
+    jwt.verify(token, "jwtkey", (err, userInfo)=>{
+        if(err) return res.status(403).json("Invalid web token");
+
+        const listId = req.params.id;
+        const q = `DELETE FROM books_in_booklists WHERE bookID = ? AND booklistID = ?`
+    })
+    
+    console.log(req.body);
+    console.log(req.params.id);
+    console.log(req.params.bookid);
+
+    const q = `DELETE FROM books_in_booklists WHERE bookID = ? AND booklistID = ?`
+
+    db.query(q, [req.params.bookid, req.params.id], (err, data) => {
+        if(err) return res.send(err);
+        return res.status(200).json("Book deleted");
+    })
 }
 
 

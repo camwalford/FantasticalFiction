@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", getLists);
 router.get("/:id", getList);
 router.post("/", addToList);
-router.delete("/:id", deleteFromList);
+router.delete("/:id/:bookid", deleteFromList);
 router.put("/:id", updateList);
 
 
