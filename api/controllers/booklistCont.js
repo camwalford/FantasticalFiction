@@ -6,7 +6,7 @@ import {db} from "../database.js";
 
 export const getList = (req, res)=>{
     const q = 
-    `SELECT * FROM usefulBooklist WHERE username = ?`;
+    `SELECT * FROM usefulBooklist WHERE booklistID = ?`;
 
     const value = req.params.id;
 
