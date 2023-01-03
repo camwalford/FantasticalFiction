@@ -4,6 +4,7 @@ import {db} from "../database.js";
 /****************** BOOKLIST RELATED FUNCTIONS ********************/
 /******************************************************************/
 
+//GETS SPECIFIC LIST BASED ON PARAMETER IN URL
 export const getList = (req, res)=>{
     const q = 
     `SELECT * FROM usefulBooklist WHERE booklistID = ?`;
@@ -16,6 +17,7 @@ export const getList = (req, res)=>{
     })
 }
 
+//GETS ALL LISTS
 export const getLists = (req, res)=>{
     const q = "SELECT * FROM usersBooklist";
 

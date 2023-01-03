@@ -10,7 +10,7 @@ const List = () => {
 
     const {currentUser} = useContext(AuthContext);
 
-    const uid = currentUser?.id;
+    const username = currentUser?.username;
 
     const location = useLocation({});
 
@@ -31,18 +31,39 @@ const List = () => {
       };
       fetchData();
     }, [listId]);
-  return (
-      <div className='single-book'>
-        <div className="content">
-          <img className="cover" src ="http://bookcoverarchive.com/wp-content/uploads/2020/07/The-Everlasting-final-cover.jpg" alt="cover"/>
-        </div>
-        <div className="author">
+
   
+  return (
+      <div className='single-list'>
+        <div className="options">
+            <div className="add">ADD</div>
+            <div className="edit">EDIT</div>
+            <div className="delete">DELETE</div>
         </div>
-        <div className="description">
-          
+        <table className="content">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Status</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          {list.map(book => (
+              <tr className="listBook" key={book.bookID}>
+                <td><Link className='link' to={`/book/${book.bookID}`}>{book.title}</Link></td>
+                <td>{book.author}</td>
+                <td>{book.genre}</td>
+                <td>{book.currentStatus}</td>
+                <td>{book.rating}</td>
+              </tr>
+            ))}  
+          </tbody>
+        </table>
+        <div className="listOwner">
         </div>
-        <div className="menu">menu</div>
       </div>
     )
 }
