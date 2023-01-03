@@ -1,4 +1,3 @@
-import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import {db} from "../database.js";
 
@@ -55,11 +54,6 @@ export const deleteFromList =(req, res)=>{
             return res.status(200).json("Book deleted from list");
         })
     })
-    
-    
-
-    
-
     
 }
 

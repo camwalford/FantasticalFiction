@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 const Books = () => {
-    const [books, setLists] = useState([])
+    const [books, setBooks] = useState([])
 
     useEffect(()=>{
       //CAN'T CREATE ASYNC FUNCTION USING JUST useEFFECT SO WE MAKE ONE INSIDE
+      //FETCHES BOOKS FROM DATABASE
       const fetchData = async () => {
         try {
-          const res = await axios.get("/api/booklist/");
-          setLists(res.data);
+          const res = await axios.get("/api/book/");
+          setBooks(res.data);
         } catch (err) {
           console.log(err);
         }

@@ -34,6 +34,7 @@ const List = () => {
       fetchData();
     }, [listId]);
 
+    //DELETES LIST ITEM
     const handleDelete = async(bookID) => {
       try {
         const res = await axios.delete(`/api/booklist/${listId}/${bookID}`);
@@ -47,38 +48,39 @@ const List = () => {
   return (
       <div className='single-list'>
         <div className="options">
-            <div className="add">ADD</div>
+            <button className="add">ADD</button>
             <div className="edit">EDIT</div>
             <div className="delete">DELETE</div>
         </div>
-        <table className="content">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>Status</th>
-            <th>Rating</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map(book => (
-              <tr className="listBook" key={book.bookID}>
-                <td><Link className='link' to={`/book/${book.bookID}`}>{book.title}</Link></td>
-                <td>{book.author}</td>
-                <td>{book.genre}</td>
-                <td>{book.currentStatus}</td>
-                <td>{book.rating}</td>
-                <td>Edit</td>
-                <td><button onClick={()=>handleDelete(book.bookID)}>Delete</button></td>
-              </tr>
-            ))}  
-          </tbody>
-        </table>
         <div className="listOwner">
         </div>
+        <table className="content">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Genre</th>
+              <th>Status</th>
+              <th>Rating</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {list.map(book => (
+                <tr className="listBook" key={book.bookID}>
+                  <td><Link className='link' to={`/book/${book.bookID}`}>{book.title}</Link></td>
+                  <td>{book.author}</td>
+                  <td>{book.genre}</td>
+                  <td>{book.currentStatus}</td>
+                  <td>{book.rating}</td>
+                  <td>Edit</td>
+                  <td><button onClick={()=>handleDelete(book.bookID)}>Delete</button></td>
+                </tr>
+              ))}  
+              
+          </tbody>
+        </table>
       </div>
     )
 }
