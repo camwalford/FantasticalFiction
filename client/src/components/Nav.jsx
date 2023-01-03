@@ -15,12 +15,12 @@ const Nav = () => {
                 <img src={Logo} alt="logo" />
             </div>
             <div className="links">
-                <Link className="link" to="/?cat=top"><h6>TOP RATED</h6></Link>
+                <Link className="link" to="/booklist"><h6>LISTS</h6></Link>
                 <Link className="link" to="/?cat=popular"><h6>MOST POPULAR</h6></Link>
                 <Link className="link" to="/search"><h6>SEARCH</h6></Link>
 
                 {/* DISPLAY CURRENT USERNAME */}
-                <span>{currentUser ?.username}</span>
+                <span>{currentUser?.username}</span>
                 {/* DISPLAY LOG IN IF USER LOGGED OUT, VICE VERSA */}
                 {currentUser ? (<span onClick={logout}>Logout</span>) : (<Link className="link" to="/login">Login</Link>)}
             </div>

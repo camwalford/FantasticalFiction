@@ -5,7 +5,15 @@ import {db} from "../database.js";
 /******************************************************************/
 
 export const getList = (req, res)=>{
-    const q = "SELECT * FROM booklists"
+    const q = 
+    `SELECT * FROM usefulBooklist WHERE username = ?`;
+
+    const value = req.params.id;
+
+    db.query(q, [value], (err, data)=>{
+        if(err) return res.json(err);
+        return res.status(200).json(data)
+    })
 }
 
 export const getLists = (req, res)=>{

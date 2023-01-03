@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import Lists from "./pages/Lists";
+import List from "./pages/List";
 import Book from "./pages/Book";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -36,8 +37,12 @@ const router = createBrowserRouter([
         element:<Home />
       },
       {
-        path: "/list",
-        element: <Lists />
+        path: "/booklist",
+        element: <Home />
+      },
+      {
+        path: "/booklist/:id",
+        element: <List />
       },
       {
         path: "/book/:id",

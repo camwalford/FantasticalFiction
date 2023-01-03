@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import { AuthContext } from '../context/authContext';
+
 
 const Home = () => {
 
-    const [lists, setLists] = useState([])
+    const [list, setList] = useState([])
 
-    console.log(lists);
+    const {currentUser} = useContext(AuthContext);
+
+    const uid = currentUser?.id;
+
+    console.log(list);
 
     useEffect(()=>{
       //CAN'T CREATE ASYNC FUNCTION USING JUST useEFFECT SO WE MAKE ONE INSIDE
       const fetchData = async () => {
         try {
-          const res = await axios.get("/api/booklist");
-          setLists(res.data);
+          const res = await axios.get(`/api/booklist/`);
+          setList(res.data);
           
         } catch (err) {
           console.log(err);
@@ -24,11 +30,12 @@ const Home = () => {
   return (
     <div className="home">
         <div className="books">
-            {lists.map(list=>(
-                <div className="book" key={lists.id}>
+            {list.map(list=>(
+                <div className="book" key={list.booklistID}>
                     <div className="content">
-                        <Link className="link" to={`/booklist/${list.id}`}>
-                            <h1>{list.bookListName}</h1>
+                        <Link className="link" to={`/booklist/${list.booklistID}`}>
+                            <h1>{list.booklistName}</h1>
+                            <h1>{list.username}</h1>
                         </Link>
                         <p>{list.description}</p>
                         <button>Read more</button>

@@ -8,6 +8,7 @@ router.get("/", getLists);
 router.get("/:id", getList);
 router.post("/", addToList);
 router.delete("/:id", deleteFromList);
+router.put("/:id", updateList);
 
 
 

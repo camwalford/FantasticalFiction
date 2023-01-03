@@ -11,6 +11,9 @@ export const addBook = (req, res)=>{
 }
 
 export const getBook = (req, res)=>{
-    res.json("from book controller");
+    q = "SELECT * FROM books WHERE id = ?"
+
+
+
 }
 
