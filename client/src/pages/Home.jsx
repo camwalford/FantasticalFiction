@@ -30,15 +30,15 @@ const Home = () => {
   return (
     <div className="home">
         <div className="books">
+            <h1>All Booklists</h1>
             {list.map(list=>(
                 <div className="book" key={list.booklistID}>
                     <div className="content">
+                            <h4>{list.booklistName} by {currentUser.username}</h4>
+                            <h4>Total books read: </h4>
                         <Link className="link" to={`/booklist/${list.booklistID}`}>
-                            <h1>{list.booklistName}</h1>
-                            <h1>{list.username}</h1>
+                          <button>View List</button>
                         </Link>
-                        <p>{list.description}</p>
-                        <button>Read more</button>
                     </div>
                 </div>
             ))}
