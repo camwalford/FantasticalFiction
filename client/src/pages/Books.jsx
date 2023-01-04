@@ -8,7 +8,7 @@ const Books = () => {
     useEffect(()=>{
       //CAN'T CREATE ASYNC FUNCTION USING JUST useEFFECT SO WE MAKE ONE INSIDE
       //FETCHES BOOKS FROM DATABASE
-      const fetchData = async () => {
+      const fetchData = async() => {
         try {
           const res = await axios.get("/api/book/");
           setBooks(res.data);
@@ -18,6 +18,7 @@ const Books = () => {
       };
       fetchData();
     }, []);
+
   
     return (
       <div className="home">

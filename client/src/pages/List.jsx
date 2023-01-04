@@ -48,7 +48,7 @@ const List = () => {
   return (
       <div className='single-list'>
         <div className="options">
-            <button className="add">ADD</button>
+            <Link to={`/booklist/${listId}/add`}><button className="add">ADD</button></Link>
             <div className="edit">EDIT</div>
             <div className="delete">DELETE</div>
         </div>

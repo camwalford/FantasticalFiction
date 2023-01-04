@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", getLists);
 router.get("/:id", getList);
-router.post("/:id", addToList);
+router.post("/:id/:bookid", addToList);
 router.delete("/:id/:bookid", deleteFromList);
 router.put("/:id", updateList);
 
