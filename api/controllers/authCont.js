@@ -1,6 +1,7 @@
 import { db } from "../database.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { createList } from "./booklistCont.js";
 
 
 
@@ -26,14 +27,18 @@ export const register = (req, res) => {
             req.body.email,
             hash
         ];
+        
         db.query(q, [values], (err, data)=>{
             if(err) return res.json(err);
+            console.log(req.body.username);
+            createList(req.body.username);
             return res.status(200).json("New user registered");
         });
-
+    
     })
 
 };
+
 
 export const login = (req, res) => {
    
@@ -52,11 +57,13 @@ export const login = (req, res) => {
         //SEPARATES USER PASSWORD FROM OTHER INFO
         const {password, ...other} = data[0]
 
+
         //SETS COOKIE NAME AND VALUE
         //ONLY ACCEPTS API REQUESTS (NO SCRIPTS CAN ACCESS THE COOKIES)
         res.cookie("access_token", token, {
             httpOnly:true
         }).status(200).json(other);
+
     })  
 };
 
@@ -66,3 +73,6 @@ export const logout = (req, res) => {
       secure:true
     }).status(200).json("User has been logged out.")
   };
+
+
+

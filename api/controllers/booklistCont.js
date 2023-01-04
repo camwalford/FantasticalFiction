@@ -9,7 +9,6 @@ import {db} from "../database.js";
 export const getList = (req, res)=>{
     const q = 
     `SELECT * FROM usefulBooklist WHERE booklistID = ?`;
-
     const value = req.params.id;
 
     db.query(q, [value], (err, data)=>{
@@ -28,7 +27,7 @@ export const getLists = (req, res)=>{
     })
 }
 
-//UPDATE LIST GIVEN CHANGES TO RATING OR STATUS
+//UPDATES BOOKLIST GIVEN CHANGE TO RATING OR STATUS IF USER PASSES AUTHENTICATION
 export const updateList =(req, res)=>{
     const token = req.cookies.access_token;
     if(!token) return res.status(401).json("User not authenticated");
@@ -59,6 +58,7 @@ export const updateList =(req, res)=>{
     })
 }
 
+//ADDS BOOK TO BOOKLIST FROM BOOKLIST IF USER PASSES AUTHENTICATION
 export const addToList = (req, res)=>{
     const token = req.cookies.access_token;
     if(!token) return res.status(401).json("User not authenticated");
@@ -89,8 +89,8 @@ export const addToList = (req, res)=>{
     })
 }
 
+//REMOVES BOOK FROM BOOKLIST IF USER PASSES AUTHENTICATION
 export const deleteFromList =(req, res)=>{
-
     //CHECKS IF USER HAS AN ACCESS TOKEN IN THEIR COOKIES
     const token = req.cookies.access_token;
     if(!token) return res.status(401).json("User not authenticated");
@@ -107,8 +107,26 @@ export const deleteFromList =(req, res)=>{
             return res.status(200).json("Book deleted from list");
         })
     })
-    
+
 }
 
-
+export const createList = (username)=>{
+    // console.log(username);
+    const q = "SELECT * FROM users WHERE username = ?";
+    db.query(q, username, (err, data)=> {
+        if(!(err) && !(data.length === 0)){
+            // console.log("no error yet")
+            const booklistName = username + "'s List"
+            const userID = data[0].id;
+            const values = [userID, booklistName];
+            // console.log(userID, booklistName);
+            const q2 = "INSERT IGNORE INTO booklists (userID, booklistName) VALUES (?)"
+            db.query(q2, [values], (err,data)=>{
+                if(!(err)){
+                    console.log("table made for" + username);
+                }
+            })
+        }
+    }) 
+};
 

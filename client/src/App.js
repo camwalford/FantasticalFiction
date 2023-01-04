@@ -6,9 +6,7 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Edit from "./pages/Edit";
 import Home from "./pages/Home";
-import Lists from "./pages/Lists";
 import List from "./pages/List";
 import Book from "./pages/Book";
 import Nav from "./components/Nav";
@@ -45,20 +43,16 @@ const router = createBrowserRouter([
         element: <List />
       },
       {
-        path: "/book/:id",
-        element: <Book />
-      },
-      {
         path: "/booklist/:id/add",
         element: <Add />
       },
       {
-        path: "/booklist/:id/edit",
-        element: <Edit />
-      },
-      {
         path: "/book",
         element: <Books />
+      },
+      {
+        path: "/book/:id",
+        element: <Book />
       }
     ]
   },

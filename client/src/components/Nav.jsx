@@ -16,7 +16,7 @@ const Nav = () => {
             </div>
             <div className="links">
                 <Link className="link" to="/booklist"><h6>LISTS</h6></Link>
-                <Link className="link" to="/?cat=popular"><h6>MOST POPULAR</h6></Link>
+                <Link className="link" to="/?cat=popular"><h6>BOOKS</h6></Link>
                 <Link className="link" to="/search"><h6>SEARCH</h6></Link>
 
                 {/* DISPLAY CURRENT USERNAME */}
