@@ -91,14 +91,12 @@ export const addToList = (req, res)=>{
 
 //REMOVES BOOK FROM BOOKLIST IF USER PASSES AUTHENTICATION
 export const deleteFromList =(req, res)=>{
+
     //CHECKS IF USER HAS AN ACCESS TOKEN IN THEIR COOKIES
     const token = req.cookies.access_token;
     if(!token) return res.status(401).json("User not authenticated");
     jwt.verify(token, "jwtkey", (err, userInfo)=>{
         if(err) return res.status(403).json("Invalid web token");
-        // console.log(req.params.id);
-        // console.log(req.params.bookid);
-        // console.log(userInfo.id);
         
         //DELETES BOOK WHERE BOOKID AND BOOKLISTID MATCH, AS WELL AS MAKING SURE THE LOGGED USER IS THE OWNER OF THE LIST
         const q = `DELETE FROM books_in_booklists WHERE bookID = ? AND booklistID = ? AND (SELECT userID FROM booklists WHERE id = ?) = ?`;
@@ -110,16 +108,14 @@ export const deleteFromList =(req, res)=>{
 
 }
 
+//FUNCTION CALLED WHEN USER REGISTERS CREATING A NEW BOOKLIST
 export const createList = (username)=>{
-    // console.log(username);
     const q = "SELECT * FROM users WHERE username = ?";
     db.query(q, username, (err, data)=> {
         if(!(err) && !(data.length === 0)){
-            // console.log("no error yet")
             const booklistName = username + "'s List"
             const userID = data[0].id;
             const values = [userID, booklistName];
-            // console.log(userID, booklistName);
             const q2 = "INSERT IGNORE INTO booklists (userID, booklistName) VALUES (?)"
             db.query(q2, [values], (err,data)=>{
                 if(!(err)){

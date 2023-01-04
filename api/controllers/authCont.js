@@ -43,7 +43,7 @@ export const register = (req, res) => {
 export const login = (req, res) => {
    
     //CHECK IF USER EXISTS IN DB
-    const q = "SELECT * FROM users WHERE username = ?";
+    const q = "SELECT * FROM users_booklists WHERE username = ?";
     db.query(q, [req.body.username], (err,data)=> {
         if(err) return res.json(err);
         if(data.length === 0 ) return res.status(404).json("User not found!");
