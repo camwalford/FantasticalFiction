@@ -8,7 +8,7 @@ router.get("/", getLists);
 router.get("/:id", getList);
 router.post("/:id/:bookid", addToList);
 router.delete("/:id/:bookid", deleteFromList);
-router.put("/:id", updateList);
+router.put("/:id/:bookid/:field/:value", updateList);
 
 
 

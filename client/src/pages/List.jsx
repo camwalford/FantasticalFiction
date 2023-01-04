@@ -8,7 +8,7 @@ const List = () => {
 
     
 
-    const [list, setList] = useState([])
+    const [list, setList] = useState([]);
 
     const {currentUser} = useContext(AuthContext);
 
@@ -44,13 +44,23 @@ const List = () => {
       }
     }
 
+    const handleChange = async(e, bookID) => {
+      const change = [e.target.name, e.target.value];
+      console.log(change, bookID);
+      console.log(change[0]);
+       try {
+         const res = await axios.put(`/api/booklist/${listId}/${bookID}/${change[0]}/${change[1]}`);
+         
+       } catch (err) {
+         console.log(err);
+       }
+    }
+
   
   return (
       <div className='single-list'>
         <div className="options">
-            <Link to={`/booklist/${listId}/add`}><button className="add">ADD</button></Link>
-            <div className="edit">EDIT</div>
-            <div className="delete">DELETE</div>
+            <Link to={`/booklist/${listId}/add`}><button className="add">ADD BOOKS</button></Link>
         </div>
         <div className="listOwner">
         </div>
@@ -63,7 +73,6 @@ const List = () => {
               <th>Status</th>
               <th>Rating</th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -72,9 +81,29 @@ const List = () => {
                   <td><Link className='link' to={`/book/${book.bookID}`}>{book.title}</Link></td>
                   <td>{book.author}</td>
                   <td>{book.genre}</td>
-                  <td>{book.currentStatus}</td>
-                  <td>{book.rating}</td>
-                  <td>Edit</td>
+                  <td>
+                    <select name="currentStatus" onChange={(e) => handleChange(e, book.bookID)} defaultValue={book.currentStatus}>
+                      {console.log(book.currentStatus)}
+                      <option value="plan to read">plan to read</option>
+                      <option value="currently reading">currently reading</option>
+                      <option value="completed">completed</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select name="rating" onChange={(e) => handleChange(e, book.bookID)} defaultValue={`${book.rating}`}>
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>
+                    </select>
+                  </td>
                   <td><button onClick={()=>handleDelete(book.bookID)}>Delete</button></td>
                 </tr>
               ))}  

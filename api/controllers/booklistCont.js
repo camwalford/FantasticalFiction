@@ -28,8 +28,35 @@ export const getLists = (req, res)=>{
     })
 }
 
+//UPDATE LIST GIVEN CHANGES TO RATING OR STATUS
 export const updateList =(req, res)=>{
-    res.json("update from booklist controller")
+    const token = req.cookies.access_token;
+    if(!token) return res.status(401).json("User not authenticated");
+    jwt.verify(token, "jwtkey", (err, userInfo)=>{
+        if(err) return res.status(403).json("Invalid web token");
+
+        const booklistID = req.params.id;
+        const bookID = req.params.bookid;
+        const field = req.params.field;
+        const value = req.params.value;
+
+        // console.log("booklistid", booklistID);
+        // console.log("bookid", bookID);
+        // console.log("userid", userInfo.id);
+        // console.log("field and value", field, value);
+        const q1 = `SELECT * FROM booklists WHERE id = ? AND userID = ?`
+        db.query(q1, [req.params.id, userInfo.id], (err, data) => {
+            if(err) return res.json(err);
+            if(data.length === 0 ) return res.status(404).json("User not associated with booklist.");
+            console.log("made it in update")
+            const q2 = `UPDATE books_in_booklists SET ${field} = ? WHERE booklistID = ? AND bookID = ?`;
+            db.query(q2, [value, booklistID, bookID], (err, data) => {
+                if(err) return res.status(403).json(err);
+                return res.status(200).json("Book added to list");
+            })
+        })
+
+    })
 }
 
 export const addToList = (req, res)=>{
@@ -42,9 +69,9 @@ export const addToList = (req, res)=>{
         const bookID = req.params.bookid;
         const values = [booklistID, bookID];
         
-        console.log("booklistid", booklistID);
-        console.log("bookid", bookID);
-        console.log("userid", userInfo.id);
+        // console.log("booklistid", booklistID);
+        // console.log("bookid", bookID);
+        // console.log("userid", userInfo.id);
 
         //ADDS BOOK WHERE BOOKID AND BOOKLISTID MATCH, AS WELL AS MAKING SURE THE LOGGED USER IS THE OWNER OF THE LIST
         const q1 = `SELECT * FROM booklists WHERE id = ? AND userID = ?`
