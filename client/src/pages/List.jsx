@@ -88,7 +88,8 @@ const List = () => {
                       <select name="currentStatus" onChange={(e) => handleChange(e, book.bookID)} defaultValue={book.currentStatus}>
                         <option value="plan to read">plan to read</option>
                         <option value="currently reading">currently reading</option>
-                        <option value="completed">completed</option>
+                        <option value="read">read</option>
+                        <option value="dropped">dropped</option>
                       </select>
                     </td>) : (<td>{book.currentStatus}</td>) }
                   {(currentUser?.booklistID == listId)?(
